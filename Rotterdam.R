@@ -20,14 +20,6 @@ library(readr)
 
 library(survival)
 
-rotterdam
-# X : chemo (chemotherapy) or hormon (hormonal treatment)
-# Y : rtime (days to relapse or last follow-up) or recur () or dtime (days to death or last follow-up), death ()
-# Z : year (year of surgery), age (age at surgery), meno (menopausal status), size (tumor size), grade (differentiation grade)
-#     nodes (number of positive lymph nodes), pgr (progesterone receptors), er (estrogen receptors)
-
-# The original dataset comprised 2982 primary breast cancer patients whose records were included in the Rotterdam tumour bank, of whom 1546 had node-positive disease.
-
 rotterdam.1 <- rotterdam |> 
   mutate(mort_recur_5_an = ifelse((dtime<= 365*5 & (death == 1)) | (rtime<= 365*5 & (recur == 1)), 1, 0),
          year_bin = ntile(year, 2) |> as.factor(),
